@@ -1,13 +1,12 @@
 ﻿using AdvancedTaskPart1.Pages;
-using AdvancedTaskPart1.Pages.HeaderComponents;
-using AdvancedTaskPart1.Pages.ProfileComponents;
+using AdvancedTaskPart1.Pages.Components;
+using AdvancedTaskPart1.Pages.Components.ProfilePage;
 using AdvancedTaskPart1.Steps;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using ProjecrMarsOnboardingtask.Pages;
 using System;
 using System.IO;
 using System.Reactive;
@@ -21,12 +20,14 @@ namespace AdvancedTaskPart1.Utils
         LoginPage loginPageObj;
         LoginSteps loginStepsObj;
         UserInformation userInformationObj;
-        Language languageObj;
-        Skills skillObj;
+        ProfileTabLanguage profileTabLanguageObj;
+        ProfileTabSkills skillObj;
         ShareSkills shareSkillsObj;
         SearchSkills searchSkillsObj;
         Notifications notificationsObj;
         NotificationSteps notificationStepsObj;
+        Homepage homepageObj;
+        Homepagesteps homestepsObj;
 
 
         public static IWebDriver driver;
@@ -40,36 +41,18 @@ namespace AdvancedTaskPart1.Utils
         public void ExtentReportSetup()
         {
             try
-            {
-
-                var sparkReporter = new ExtentSparkReporter(@"D:\Mansi-Industryconnect\AdvancedTaskPart1\Reports\extentReport.html");
-                extent = new ExtentReports();
-                extent.AttachReporter(sparkReporter);
+            {               
 
                 driver = new ChromeDriver();
                 driver.Manage().Window.Maximize();
+                var sparkReporter = new ExtentSparkReporter(@"D:\Mansi-Industryconnect\AdvancedTaskPart1\Reports\extentReport.html");
+                extent = new ExtentReports();
+                extent.AttachReporter(sparkReporter);
                 driver.Navigate().GoToUrl("http://localhost:5000/Home");
-
                 loginPageObj = new LoginPage();
-                userInformationObj = new UserInformation();
                 loginStepsObj = new LoginSteps();
-                languageObj = new Language();
-                skillObj = new Skills();
-                shareSkillsObj = new ShareSkills();
-                searchSkillsObj = new SearchSkills();
-                notificationsObj = new Notifications();
-                notificationStepsObj = new NotificationSteps();
-                
                 loginStepsObj.LoginActions();
-                
-               
-               
-                // Clean all existing data
-                languageObj.CleanLanguageData();
-                skillObj.CleanSkillData();
-
-                notificationStepsObj.Gotonotificationpage();
-
+                cleanLangSkillData();
             }
             catch (Exception e)
             {
@@ -80,8 +63,19 @@ namespace AdvancedTaskPart1.Utils
         [SetUp]
         public void Initialization()
         {
+           
+            homestepsObj = new Homepagesteps();  
             var testName = TestContext.CurrentContext.Test.Name;
             test = extent.CreateTest(testName);
+        }
+
+        public void cleanLangSkillData() 
+        {
+            profileTabLanguageObj = new ProfileTabLanguage();
+            skillObj = new ProfileTabSkills();
+            profileTabLanguageObj.CleanLanguageData();
+            skillObj.CleanSkillData();
+
         }
 
         [TearDown]
@@ -94,7 +88,7 @@ namespace AdvancedTaskPart1.Utils
                 {
                     try
                     {
-                        languageObj.DeleteLanguage(language);
+                        profileTabLanguageObj.DeleteLanguage(language);
                         test.Log(Status.Info, $"Deleted language name '{language}' from the UI.");
                     }
                     catch (Exception cleanupEx)

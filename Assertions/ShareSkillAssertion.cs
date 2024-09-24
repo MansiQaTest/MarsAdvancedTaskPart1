@@ -1,16 +1,15 @@
-﻿using AdvancedTaskPart1.Pages.HeaderComponents;
-using AdvancedTaskPart1.TestModel;
+﻿using AdvancedTaskPart1.TestModel;
 using AdvancedTaskPart1.Utils;
 using AventStack.ExtentReports;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
-using ProjecrMarsOnboardingtask.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdvancedTaskPart1.Pages.Components;
 
 namespace AdvancedTaskPart1.Assertions
 {
@@ -20,12 +19,12 @@ namespace AdvancedTaskPart1.Assertions
         ShareSkillModel shareskillModelObj;
 
         public ShareSkillAssertion()
-        { 
+        {
             shareSkillsObj = new ShareSkills();
             shareskillModelObj = new ShareSkillModel();
         }
         public void AddShareSkillAssertion(ShareSkillModel AddShareSkill)
-        {            
+        {
             string addedTitle = shareSkillsObj.GetList();
 
             // Log the expected and actual skill title values
@@ -42,7 +41,7 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "Test passed successfully");
 
             // Add the skill to the list for cleanup
-           // CommonDriver.SkillsToDelete.Add(Skill);
+            // CommonDriver.SkillsToDelete.Add(Skill);
 
 
         }

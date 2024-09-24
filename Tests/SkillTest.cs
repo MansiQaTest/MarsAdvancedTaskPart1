@@ -1,8 +1,8 @@
 ﻿using AdvancedTaskPart1.Assertions;
+using AdvancedTaskPart1.Pages.Components.ProfilePage;
 using AdvancedTaskPart1.Steps;
 using AdvancedTaskPart1.Utils;
 using NUnit.Framework;
-using ProjecrMarsOnboardingtask.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +13,14 @@ namespace AdvancedTaskPart1.Tests
 {
     public class SkillTest : CommonDriver
     {
-        Skills skillObj;
+        ProfileTabSkills skillObj;
         SkillAssertion skillAssertionObj;
         SkillsSteps skillsStepsObj;
         List<string> SkillsToDelete;
 
         public SkillTest()
         {
-            skillObj = new Skills();
+            skillObj = new ProfileTabSkills();
             skillAssertionObj = new SkillAssertion();
             skillsStepsObj = new SkillsSteps();
         }

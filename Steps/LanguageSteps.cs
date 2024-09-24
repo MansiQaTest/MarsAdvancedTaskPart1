@@ -1,6 +1,6 @@
 ﻿using AdvancedTaskPart1.Assertions;
 using AdvancedTaskPart1.Pages;
-using AdvancedTaskPart1.Pages.ProfileComponents;
+using AdvancedTaskPart1.Pages.Components.ProfilePage;
 using AdvancedTaskPart1.TestModel;
 using AdvancedTaskPart1.Utils;
 using AventStack.ExtentReports;
@@ -16,12 +16,12 @@ namespace AdvancedTaskPart1.Steps
 {
     public class LanguageSteps : CommonDriver
     {
-        Language languageObj;
+        ProfileTabLanguage languageObj;
         LanguageAssertion languageAssertionObj;
         
         public LanguageSteps()
         {
-            languageObj = new Language();
+            languageObj = new ProfileTabLanguage();
             languageAssertionObj = new LanguageAssertion();
         }
 

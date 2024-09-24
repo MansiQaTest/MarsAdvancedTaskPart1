@@ -9,8 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdvancedTaskPart1.Pages;
-using AdvancedTaskPart1.Pages.HeaderComponents;
 using System.Reactive;
 using System.ComponentModel;
 
@@ -62,7 +60,7 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "ShowLess Clicked :Test Passed");
         }
 
-        public void DeleteNotificationAssertion() 
+        public void DeleteNotificationAssertion()
         {
             WaitUtils.WaitToBeClickable(driver, "XPath", e_message, 10);
             string actualmessage = message.Text;
@@ -103,18 +101,18 @@ namespace AdvancedTaskPart1.Assertions
         {
             try
             {
-                
+
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 IWebElement selectAllButton = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//i[@class='mouse pointer icon']")));
 
-                
+
                 selectAllButton.Click();
-               
+
                 IWebElement UnselectAllButton = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//div[@data-tooltip='Unselect all']")));
 
                 UnselectAllButton.Click();
 
-                
+
                 return true;
             }
             catch (NoSuchElementException ex)
@@ -160,7 +158,7 @@ namespace AdvancedTaskPart1.Assertions
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
                 IWebElement Loadmore = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"notification-section\"]/div[2]/div/div/div[3]/div[2]/span/span/div/div[6]/div/center/a")));
                 Loadmore.Click();
-                
+
                 IWebElement Showless = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"notification-section\"]/div[2]/div/div/div[3]/div[2]/span/span/div/div[7]/div[1]/center/a")));
                 Showless.Click();
 

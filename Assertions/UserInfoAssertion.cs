@@ -1,4 +1,4 @@
-﻿using AdvancedTaskPart1.Pages.ProfileComponents;
+﻿using AdvancedTaskPart1.Pages.Components.ProfilePage;
 using AdvancedTaskPart1.Utils;
 using AventStack.ExtentReports;
 using NUnit.Framework;
@@ -15,7 +15,7 @@ namespace AdvancedTaskPart1.Assertions
     {
         UserInformation userInformationObj;
         public UserInfoAssertion()
-        { 
+        {
             userInformationObj = new UserInformation();
         }
         public void EditUserInfoAssert()

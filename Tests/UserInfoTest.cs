@@ -1,4 +1,4 @@
-﻿using AdvancedTaskPart1.Pages.ProfileComponents;
+﻿using AdvancedTaskPart1.Pages.Components.ProfilePage;
 using AdvancedTaskPart1.Steps;
 using AdvancedTaskPart1.Utils;
 using NUnit.Framework;

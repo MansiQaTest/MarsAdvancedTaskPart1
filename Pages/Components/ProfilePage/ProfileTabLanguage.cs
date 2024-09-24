@@ -1,61 +1,74 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium.Support.UI;
+﻿using AdvancedTaskPart1.Steps;
+using AdvancedTaskPart1.Utils;
+using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AdvancedTaskPart1.Utils;
 
-namespace ProjecrMarsOnboardingtask.Pages
+
+namespace AdvancedTaskPart1.Pages.Components.ProfilePage
 {
-    public class Skills : CommonDriver
-    {
+    public class ProfileTabLanguage : CommonDriver
 
-        private IWebElement addNewSkillButton => driver.FindElement(By.XPath("//div[@data-tab='second']//div[@class ='ui teal button']"));
-        private IWebElement addskillName => driver.FindElement(By.XPath("//input[contains(@placeholder, 'Add')]"));
-        private IWebElement dropdownSkill => driver.FindElement(By.XPath("//div[@data-tab='second']//select[@class='ui fluid dropdown']"));
+    {
+        Homepagesteps HomepagestepsObj;
+        ProfileMenuTab profileMenuTabObj;
+
+        private IWebElement addNewLanguageButton => driver.FindElement(By.XPath("//div[@data-tab='first']//div[@class ='ui teal button ']"));
+        private IWebElement addLanuageName => driver.FindElement(By.XPath("//input[contains(@placeholder, 'Add')]"));
+        private IWebElement dropdownLanguage => driver.FindElement(By.XPath("//div[@data-tab='first']//select[@class='ui dropdown']"));
         private IWebElement AddButton => driver.FindElement(By.XPath(e_AddButton));
-        private IWebElement skill => driver.FindElement(By.XPath(e_Skill));
-        private IWebElement SkillLevel => driver.FindElement(By.XPath("//div[@data-tab='second']//tbody[last()]/tr/td[2]"));
-        private IWebElement editSkillButton => driver.FindElement(By.XPath(e_editSkillButton));
-        private IWebElement editLanuage => driver.FindElement(By.XPath("//input[@placeholder='Add Skill']"));
+        private IWebElement language => driver.FindElement(By.XPath(e_language));
+        private IWebElement languageLevel => driver.FindElement(By.XPath("//div[@data-tab='first']//tbody[last()]/tr/td[2]"));
+        private IWebElement editLanguageButton => driver.FindElement(By.XPath(e_editLanguageButton));
+        private IWebElement editLanuage => driver.FindElement(By.XPath("//input[@placeholder='Add Language']"));
         private IWebElement buttonUpdate => driver.FindElement(By.XPath(e_updateButton));
         private IWebElement cancelButton => driver.FindElement(By.XPath(e_cancelButton));
-        private IWebElement buttonDelete => driver.FindElement(By.XPath("//div[@data-tab='second']//tbody[last()]/tr/td[3]/span[2]/i"));
+        private IWebElement buttonDelete => driver.FindElement(By.XPath("//div[@data-tab='first']//tbody[last()]/tr/td[3]/span[2]/i"));
         private IWebElement errormessage => driver.FindElement(By.XPath(e_errormessage));
         private IWebElement successmessage => driver.FindElement(By.XPath(e_successmessage));
-        private IWebElement tabOption => driver.FindElement(By.XPath("//div[@class = 'ui top attached tabular menu']/a[2]"));
 
-        private string e_Skill = "//div[@data-tab='second']//tbody[last()]/tr/td[1]";
-        private string e_editSkillButton = "//div[@data-tab='second']//tbody[last()]/tr/td[3]/span[1]/i";
-        private string e_deletebutton = "//div[@data-tab='second']//tbody[last()]/tr/td[3]/span[2]/i";
+        private IWebElement tabOption => driver.FindElement(By.XPath("//div[@class = 'ui top attached tabular menu']/a[1]"));
+
+        private string e_language = "//div[@data-tab='first']//tbody[last()]/tr/td[1]";
+        private string e_editLanguageButton = "//div[@data-tab='first']//tbody[last()]/tr/td[3]/span[1]/i";
+        private string e_deletebutton = "//div[@data-tab='first']//tbody[last()]/tr/td[3]/span[2]/i";
         private string e_errormessage = "//div[@class='ns-box ns-growl ns-effect-jelly ns-type-error ns-show']";
         private string e_successmessage = "//div[@class='ns-box ns-growl ns-effect-jelly ns-type-success ns-show']";
         private string e_waitForTab = "//div[@class='ui top attached tabular menu']";
         private string e_AddButton = "//input[@value='Add']";
-        private string e_AddSkillName = "//input[contains(@placeholder, 'Add')]";
-        private string e_AddSkillbutton = "//div[@data-tab='second']//div[@class ='ui teal button']";
+        private string e_AddLanguageName = "//input[contains(@placeholder, 'Add')]";
+        private string e_Addlanguagebutton = "//div[@data-tab='first']//div[@class ='ui teal button ']";
         private string e_updateButton = "//input[@value='Update']";
         private string e_cancelButton = "//input[@value='Cancel']";
 
-        public void CreateSkill(string Skill, string Skilllevel)
+        public ProfileTabLanguage() 
         {
-            ClickAnyTab("Skills");
+            HomepagestepsObj = new Homepagesteps(); 
+            profileMenuTabObj = new ProfileMenuTab();
+        }
+
+        public void CreateLanguage(string language, string languagelevel)
+        {
             WaitForPopupToDisappear();
+            HomepagestepsObj.clickOnProfileTab();
+            profileMenuTabObj.ClickLanguageTab();
 
-            WaitUtils.WaitToBeClickable(driver, "XPath", e_AddSkillbutton, 10);
+            WaitUtils.WaitToBeClickable(driver, "XPath", e_Addlanguagebutton, 10);
             //Click Add New
-            addNewSkillButton.Click();
+            addNewLanguageButton.Click();
 
-            WaitUtils.WaitToBeClickable(driver, "XPath", e_AddSkillName, 10);
-            //Enter Skill
-            addskillName.SendKeys(Skill);
+            WaitUtils.WaitToBeClickable(driver, "XPath", e_AddLanguageName, 10);
+            //Enter language
+            addLanuageName.SendKeys(language);
 
             //Choose Lanuage Level
-            var selectSkillDropdown = new SelectElement(dropdownSkill);
-            selectSkillDropdown.SelectByValue(Skilllevel);
+            var selectLanguageDropdown = new SelectElement(dropdownLanguage);
+            selectLanguageDropdown.SelectByValue(languagelevel);
 
             WaitUtils.WaitToBeClickable(driver, "XPath", e_AddButton, 10);
 
@@ -72,27 +85,27 @@ namespace ProjecrMarsOnboardingtask.Pages
             }
             else
             {
-                Console.WriteLine("skill added successfully.");
+                Console.WriteLine("language added successfully.");
             }
-
         }
-        public void UpdateSkill(string Skill, string Skilllevel)
+        public void UpdateLanguage(string language, string languagelevel)
         {
-            ClickAnyTab("Skills");
-
-            WaitUtils.WaitToBeClickable(driver, "XPath", e_editSkillButton, 20);
             WaitForPopupToDisappear();
+            HomepagestepsObj.clickOnProfileTab();
+            profileMenuTabObj.ClickLanguageTab();
+
+            WaitUtils.WaitToBeClickable(driver, "XPath", e_editLanguageButton, 20);
+
             //Click edit button
-            editSkillButton.Click();
+            editLanguageButton.Click();
 
-
-            //Edit Skill
+            //Edit language
             editLanuage.Clear();
-            editLanuage.SendKeys(Skill);
+            editLanuage.SendKeys(language);
 
             //Edit Lanuage Level
-            var selectSkill = new SelectElement(dropdownSkill);
-            selectSkill.SelectByValue(Skilllevel);
+            var selectLanguage = new SelectElement(dropdownLanguage);
+            selectLanguage.SelectByValue(languagelevel);
 
             WaitUtils.WaitToBeClickable(driver, "XPath", e_updateButton, 20);
             //Click Update
@@ -100,49 +113,46 @@ namespace ProjecrMarsOnboardingtask.Pages
 
             cancelButton.Click();
         }
-        public string GetSkill()
+        public string GetLanguage()
         {
-            //Get last record Skill text
+            //Get last record language text
             try
             {
 
-                WaitUtils.WaitToBeVisible(driver, "XPath", e_Skill, 10);
-                return skill.Text;
+                WaitUtils.WaitToBeVisible(driver, "XPath", e_language, 10);
+                return language.Text;
             }
             catch (Exception)
             {
                 return "locator not found";
             }
         }
-        public void DeleteSkill(string Skill)
+        public void DeleteLanguage(string language)
         {
-            ClickAnyTab("Skills");
-
-
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
-            bool isSkillFound = false;
+            bool isLanguageFound = false;
 
             while (true)
             {
                 try
                 {
-                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr")));
+                    wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr")));
 
-                    var rows = driver.FindElements(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody/tr"));
+                    var rows = driver.FindElements(By.XPath("//*[@id='account-profile-section']/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody/tr"));
 
                     foreach (var row in rows)
                     {
                         var cell = row.FindElement(By.CssSelector("td:first-child"));
-                        if (cell.Text.Equals(Skill, StringComparison.OrdinalIgnoreCase))
+                        if (cell.Text.Equals(language, StringComparison.OrdinalIgnoreCase))
                         {
-                            isSkillFound = true;
+                            isLanguageFound = true;
                             buttonDelete.Click();
                             Thread.Sleep(5000); // Wait for deletion to process
                             break;
                         }
                     }
 
-                    if (!isSkillFound)
+                    if (!isLanguageFound)
                     {
                         break;
                     }
@@ -178,14 +188,14 @@ namespace ProjecrMarsOnboardingtask.Pages
             //Click on specified tab
             tabOption.Click();
         }
-        public void CleanSkillData()
+        public void CleanLanguageData()
         {
-            ClickAnyTab("Skills");
+
             while (true)
             {
                 try
                 {
-                    //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table/tbody[last()]/tr/td[3]/span[2]/i")));
+                    //wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//*[@id=\"account-profile-section\"]/div/section[2]/div/div/div/div[3]/form/div[2]/div/div[2]/div/table/tbody[last()]/tr/td[3]/span[2]/i")));
                     WaitUtils.WaitToBeVisible(driver, "XPath", e_deletebutton, 10);
                     // Find the delete button for the last record
                     buttonDelete.Click();
@@ -202,14 +212,12 @@ namespace ProjecrMarsOnboardingtask.Pages
                     break;
                 }
             }
-
-
         }
 
 
         private void WaitForPopupToDisappear()
         {
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
 
             try
             {

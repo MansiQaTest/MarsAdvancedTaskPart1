@@ -1,7 +1,7 @@
 ﻿using AdvancedTaskPart1.Assertions;
+using AdvancedTaskPart1.Pages.Components.ProfilePage;
 using AdvancedTaskPart1.TestModel;
 using AdvancedTaskPart1.Utils;
-using ProjecrMarsOnboardingtask.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +12,12 @@ namespace AdvancedTaskPart1.Steps
 {
     public class SkillsSteps : CommonDriver
     {
-        Skills skillsObj;
+        ProfileTabSkills skillsObj;
         SkillAssertion skillAssertionObj;
 
         public SkillsSteps()
         {
-            skillsObj = new Skills();
+            skillsObj = new ProfileTabSkills();
             skillAssertionObj = new SkillAssertion();
         }
 

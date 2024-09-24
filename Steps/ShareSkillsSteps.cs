@@ -1,5 +1,5 @@
 ﻿using AdvancedTaskPart1.Assertions;
-using AdvancedTaskPart1.Pages.HeaderComponents;
+using AdvancedTaskPart1.Pages.Components;
 using AdvancedTaskPart1.TestModel;
 using AdvancedTaskPart1.Utils;
 using System;

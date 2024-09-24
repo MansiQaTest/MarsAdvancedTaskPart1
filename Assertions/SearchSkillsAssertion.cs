@@ -17,11 +17,11 @@ namespace AdvancedTaskPart1.Assertions
         private IWebElement verifySkill => driver.FindElement(By.XPath("//*[@id=\"service-search-section\"]/div[2]/div/section/div/div[2]/div/div[2]/div/div/div[1]/div[1]/a[2]"));
         private IWebElement category => driver.FindElement(By.XPath("//*[@id=\"service-detail-section\"]/div[2]/div/div[2]/div[1]/div[1]/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[2]"));
         private IWebElement screenmessage => driver.FindElement(By.XPath("//*[@id=\"service-search-section\"]/div[2]/div/section/div/div[2]/div/h3"));
-        private IWebElement invMsg => driver.FindElement(By.XPath("//*[@id=\"service-search-section\"]/div[2]/div/section/div/div[2]/div/h3")); 
+        private IWebElement invMsg => driver.FindElement(By.XPath("//*[@id=\"service-search-section\"]/div[2]/div/section/div/div[2]/div/h3"));
         private string e_chkCategory => "//*[@id=\"service-detail-section\"]/div[2]/div/div[2]/div[1]/div[1]/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[2]";
         private string e_screenmessage => "//*[@id=\"service-search-section\"]/div[2]/div/section/div/div[2]/div/h3";
         private string e_invMsg = "No results found, please select a new category!";
-        
+
         public void SearchSkillByAllCategoriesAssertion(string Category, string searchString)
         {
             try
@@ -81,7 +81,7 @@ namespace AdvancedTaskPart1.Assertions
             }
         }
 
-        public void SearchSkillByCatSubCategoryAssertion(string Category, string subcategory ,string searchString)
+        public void SearchSkillByCatSubCategoryAssertion(string Category, string subcategory, string searchString)
         {
             try
             {

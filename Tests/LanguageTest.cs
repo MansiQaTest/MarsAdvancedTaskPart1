@@ -1,6 +1,6 @@
 ﻿using AdvancedTaskPart1.Assertions;
 using AdvancedTaskPart1.Pages;
-using AdvancedTaskPart1.Pages.ProfileComponents;
+using AdvancedTaskPart1.Pages.Components.ProfilePage;
 using AdvancedTaskPart1.Steps;
 using AdvancedTaskPart1.Utils;
 using NUnit.Framework;
@@ -14,7 +14,7 @@ namespace AdvancedTaskPart1.Tests
 {
     public class LanguageTest : CommonDriver
     {
-        Language languageobj;
+        ProfileTabLanguage languageobj;
         LanguageAssertion languageAssertionObj;
         LanguageSteps languageStepsObj;
         List<string> LanguageToDelete;
@@ -22,7 +22,7 @@ namespace AdvancedTaskPart1.Tests
 
         public LanguageTest()
         {
-           languageobj = new Language();
+           languageobj = new ProfileTabLanguage();
            languageAssertionObj = new LanguageAssertion();
            languageStepsObj = new LanguageSteps();
         }

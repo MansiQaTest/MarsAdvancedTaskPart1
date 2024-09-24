@@ -5,24 +5,24 @@ using Newtonsoft.Json;
 using NUnit.Framework;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
-using ProjecrMarsOnboardingtask.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AdvancedTaskPart1.Pages.Components.ProfilePage;
 
 namespace AdvancedTaskPart1.Assertions
 {
     public class SkillAssertion : CommonDriver
     {
-        Skills skillObj;
+        ProfileTabSkills skillObj;
         private IWebElement errormessage => driver.FindElement(By.XPath(e_errorMessageXPath));
         private string e_errorMessageXPath = "//div[@class='ns-box ns-growl ns-effect-jelly ns-type-error ns-show']";
 
         public SkillAssertion()
         {
-            skillObj = new Skills();
+            skillObj = new ProfileTabSkills();
 
         }
         public void addskillAssertion(string Skill)
@@ -45,7 +45,7 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "Test passed successfully");
 
             // Add the skill to the list for cleanup
-            CommonDriver.SkillsToDelete.Add(Skill);
+            SkillsToDelete.Add(Skill);
 
         }
         public void addSkillwithemptyAssertion()
@@ -71,7 +71,7 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "Test passed successfully");
 
             // Add the skill to the list for cleanup
-            CommonDriver.SkillsToDelete.Add(Skill);
+            SkillsToDelete.Add(Skill);
 
         }
 
@@ -105,7 +105,7 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "All Skills were successfully created and verified.");
 
             // Add the skills to the delete list
-            expectedSkills.ForEach(Skill => CommonDriver.SkillsToDelete.Add(Skill));
+            expectedSkills.ForEach(Skill => SkillsToDelete.Add(Skill));
         }
 
         public void addaddSkillwithInvalidAssertion(List<string> invalidSkills)
@@ -160,7 +160,7 @@ namespace AdvancedTaskPart1.Assertions
                 {
                     try
                     {
-                        CommonDriver.SkillsToDelete.Add(Skill);
+                        SkillsToDelete.Add(Skill);
                     }
                     catch (Exception ex)
                     {
@@ -188,7 +188,7 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "Test passed successfully");
 
             // Add the skill to the list for cleanup
-            CommonDriver.SkillsToDelete.Add(Skill);
+            SkillsToDelete.Add(Skill);
 
         }
 
@@ -213,7 +213,7 @@ namespace AdvancedTaskPart1.Assertions
 
             test.Log(Status.Pass, "Test passed successfully");
 
-            CommonDriver.SkillsToDelete.Add(Skill);
+            SkillsToDelete.Add(Skill);
         }
 
         public void EditSkillDatawithDuplicateAssertion(string Skill)
@@ -222,7 +222,7 @@ namespace AdvancedTaskPart1.Assertions
             string expectedMessage = "This skill is already added to your skill list.";
             Assert.That(message, Is.EqualTo(expectedMessage), "The expected error message did not appear.");
             test.Log(Status.Pass, "Test passed successfully");
-            CommonDriver.SkillsToDelete.Add(Skill);
+            SkillsToDelete.Add(Skill);
         }
         public void deleteskillWhichisinListAssertion(string Skill)
         {
@@ -231,7 +231,7 @@ namespace AdvancedTaskPart1.Assertions
 
                 // Verify that the skill is no longer present
                 var skillAfterDeletion = skillObj.GetSkill();
-                foreach (var Skills in CommonDriver.SkillsToDelete)
+                foreach (var Skills in SkillsToDelete)
                 {
                     if (skillAfterDeletion.Contains(Skill))
                     {
@@ -251,7 +251,7 @@ namespace AdvancedTaskPart1.Assertions
             }
             finally
             {
-                if (CommonDriver.SkillsToDelete == null || !CommonDriver.SkillsToDelete.Any())
+                if (SkillsToDelete == null || !SkillsToDelete.Any())
                 {
                     test.Log(Status.Info, "No data to clean up.");
                 }
@@ -259,7 +259,7 @@ namespace AdvancedTaskPart1.Assertions
                 {
                     try
                     {
-                        foreach (var Skills in CommonDriver.SkillsToDelete)
+                        foreach (var Skills in SkillsToDelete)
                         {
                             test.Log(Status.Info, $"Attempting to delete skill: {Skill}");
                         }

@@ -1,4 +1,5 @@
-﻿using AdvancedTaskPart1.Utils;
+﻿using AdvancedTaskPart1.Steps;
+using AdvancedTaskPart1.Utils;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -6,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdvancedTaskPart1.Pages.HeaderComponents
+namespace AdvancedTaskPart1.Pages.Components
 {
     public class Notifications : CommonDriver
     {
+        Homepagesteps homepagestepsObj;
         private IWebElement notificationDropdown => driver.FindElement(By.XPath("//*[@id=\"account-profile-section\"]/div/div[1]/div[2]/div/div"));
         private IWebElement seeallnoficationlink => driver.FindElement(By.XPath("//*[@id=\"notification-section\"]/div[1]/div[2]/div/div/div/span/div/div[2]/div/center/a"));
         private IWebElement SelectAll => driver.FindElement(By.XPath("//i[@class='mouse pointer icon']"));
@@ -35,17 +37,23 @@ namespace AdvancedTaskPart1.Pages.HeaderComponents
         private string e_successmessage = "//div[@class='ns-box ns-growl ns-effect-jelly ns-type-success ns-show']";
         private string e_delete = "//i[@class='trash icon']";
         private string e_selectCheckBoxIcon = "//*[@id=\"notification-section\"]/div[2]/div/div/div[3]/div[2]/span/span/div/div[1]/div/div/div[3]/input";
-
+        public Notifications() 
+        {
+            homepagestepsObj = new Homepagesteps();        
+        }
         public void SelectAllNotification()
         {
+            homepagestepsObj.clickonNotification();
+
             Thread.Sleep(2000);
-            
+
             WaitUtils.WaitToBeClickable(driver, "XPath", e_selectall, 10);
             SelectAll.Click();
 
         }
         public void UnSelectAllNotification()
         {
+            homepagestepsObj.clickonNotification();
             Thread.Sleep(2000);
 
             WaitUtils.WaitToBeClickable(driver, "XPath", e_selectall, 10);
@@ -59,29 +67,32 @@ namespace AdvancedTaskPart1.Pages.HeaderComponents
 
         public void MarkasReadNotification()
         {
+            homepagestepsObj.clickonNotification();
             Thread.Sleep(2000);
-            
+
             WaitUtils.WaitToBeClickable(driver, "XPath", e_selectall, 10);
             SelectAll.Click();
             Thread.Sleep(20000);
 
             WaitUtils.WaitToBeClickable(driver, "XPath", e_markasread, 20);
             MarkasRead.Click();
-         
+
         }
 
         public void LoadmoreNotification()
         {
+            homepagestepsObj.clickonNotification();
             Thread.Sleep(2000);
-            
+
             WaitUtils.WaitToBeClickable(driver, "XPath", e_loadmore, 10);
             Loadmore.Click();
         }
 
         public void ShowLessNotification()
         {
+            homepagestepsObj.clickonNotification();
             Thread.Sleep(2000);
-          
+
             WaitUtils.WaitToBeClickable(driver, "XPath", e_loadmore, 10);
             Loadmore.Click();
 
@@ -92,8 +103,9 @@ namespace AdvancedTaskPart1.Pages.HeaderComponents
 
         public void DeleteNotification()
         {
+            homepagestepsObj.clickonNotification();
             Thread.Sleep(2000);
-            
+
             WaitUtils.WaitToBeClickable(driver, "XPath", e_selectCheckBoxIcon, 10);
             selectCheckBoxIcon.Click();
 

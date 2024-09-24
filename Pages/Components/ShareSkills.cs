@@ -1,4 +1,5 @@
-﻿using AdvancedTaskPart1.TestModel;
+﻿using AdvancedTaskPart1.Steps;
+using AdvancedTaskPart1.TestModel;
 using AdvancedTaskPart1.Utils;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -9,10 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AdvancedTaskPart1.Pages.HeaderComponents
+namespace AdvancedTaskPart1.Pages.Components
 {
     public class ShareSkills : CommonDriver
     {
+        Homepagesteps homepagestepsObj;
         private IWebElement ShareSkillButton => driver.FindElement(By.XPath("//div[@class='right item']//a[@class='ui basic green button']"));
         private IWebElement title => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[1]/div/div[2]/div/div[1]/input"));
         private IWebElement description => driver.FindElement(By.XPath("//*[@id=\"service-listing-section\"]/div[2]/div/form/div[2]/div/div[2]/div[1]/textarea"));
@@ -60,9 +62,13 @@ namespace AdvancedTaskPart1.Pages.HeaderComponents
         private string e_AvailableDaysEndDateXPath = "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[7]/div[2]/div/div[1]/div[2]/input";
         private string e_creditamount = "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[8]/div[4]/div/div/input";
         private string e_SaveXPath = "//*[@id=\"service-listing-section\"]/div[2]/div/form/div[11]/div/input[1]";
-
+        public ShareSkills() 
+        {
+           homepagestepsObj = new Homepagesteps();
+        }
         public void CreateShareSkill(ShareSkillModel AddShareSkill)
         {
+            homepagestepsObj.clickonshareskill();
             // Wait for any popups to disappear
             WaitForPopupToDisappear();
 
@@ -77,18 +83,18 @@ namespace AdvancedTaskPart1.Pages.HeaderComponents
             description.SendKeys(AddShareSkill.Description);
 
             // Select Category
-            WaitUtils.WaitToBeClickable(driver, "XPath", e_category, 10);            
+            WaitUtils.WaitToBeClickable(driver, "XPath", e_category, 10);
             category.SendKeys(AddShareSkill.Category);
             category.SendKeys(Keys.Enter); // Press Enter to select category
 
             // Select Subcategory
-            WaitUtils.WaitToBeClickable(driver, "XPath", e_subcategory, 10);          
+            WaitUtils.WaitToBeClickable(driver, "XPath", e_subcategory, 10);
             SubCategory.Click();
             SubCategory.SendKeys(AddShareSkill.SubCategory);
             SubCategory.SendKeys(Keys.Enter); // Press Enter to select subcategory
 
             // Enter Tags
-            WaitUtils.WaitToBeClickable(driver, "XPath", e_tagsXPath, 10);         
+            WaitUtils.WaitToBeClickable(driver, "XPath", e_tagsXPath, 10);
             tags.Click();
             tags.SendKeys(AddShareSkill.Tags);
             tags.SendKeys(Keys.Enter); // Press Enter to submit tags
@@ -96,7 +102,7 @@ namespace AdvancedTaskPart1.Pages.HeaderComponents
             // Select Service Type
             if (AddShareSkill.ServiceType == ServiceSelection1.Text)
             {
-                WaitUtils.WaitToBeClickable(driver, "XPath" , e_ServiceSelection1XPath, 10);
+                WaitUtils.WaitToBeClickable(driver, "XPath", e_ServiceSelection1XPath, 10);
                 ServiceSelection1.Click();
             }
             else
@@ -108,17 +114,17 @@ namespace AdvancedTaskPart1.Pages.HeaderComponents
             // Select Location Type
             if (AddShareSkill.LocationType == LocationtypeOnline.Text)
             {
-                WaitUtils.WaitToBeClickable(driver, "XPath" , e_LocationtypeOnlineXPath, 10);
+                WaitUtils.WaitToBeClickable(driver, "XPath", e_LocationtypeOnlineXPath, 10);
                 LocationtypeOnline.Click();
             }
             else
             {
-                WaitUtils.WaitToBeClickable(driver,"XPath" , e_LocationtypeOnsiteXPath , 10);
+                WaitUtils.WaitToBeClickable(driver, "XPath", e_LocationtypeOnsiteXPath, 10);
                 LocationtypeOnsite.Click();
             }
 
             // Set Available Dates
-            WaitUtils.WaitToBeClickable(driver, "XPath", e_AvailableDaysStartDateXPath , 10);
+            WaitUtils.WaitToBeClickable(driver, "XPath", e_AvailableDaysStartDateXPath, 10);
             AvailableDaysStartDate.Click();
             AvailableDaysStartDate.SendKeys(AddShareSkill.StartDate);
 
@@ -136,12 +142,12 @@ namespace AdvancedTaskPart1.Pages.HeaderComponents
                 SkillExchangeData.SendKeys(AddShareSkill.SkillExchange);
                 SkillExchangeData.SendKeys(Keys.Enter);
             }
-            else 
+            else
             {
                 //WaitUtils.WaitToBeVisible(driver, "XPath", e_SkillTradeCredit, 10);
-               //aitUtils.WaitToBeClickable(driver, "XPath", e_SkillTradeCredit, 20);
+                //aitUtils.WaitToBeClickable(driver, "XPath", e_SkillTradeCredit, 20);
                 SkillTradeCredit.Click();
-                WaitUtils.WaitToBeVisible(driver,"XPath" , e_creditamount, 20);
+                WaitUtils.WaitToBeVisible(driver, "XPath", e_creditamount, 20);
                 CreditAmount.Click();
                 CreditAmount.SendKeys(AddShareSkill.Credit);
             }
@@ -149,17 +155,17 @@ namespace AdvancedTaskPart1.Pages.HeaderComponents
             // Set Status
             if (AddShareSkill.Active == StatusActive.Text)
             {
-                WaitUtils.WaitToBeClickable(driver, "XPath" , e_StatusActiveXPath , 10);
+                WaitUtils.WaitToBeClickable(driver, "XPath", e_StatusActiveXPath, 10);
                 StatusActive.Click();
             }
             else
             {
-                WaitUtils.WaitToBeClickable(driver, "XPath" , e_StatusHiddenXPath, 10);
+                WaitUtils.WaitToBeClickable(driver, "XPath", e_StatusHiddenXPath, 10);
                 StatusHidden.Click();
             }
 
             // Save
-            WaitUtils.WaitToBeClickable(driver, "XPath" , e_SaveXPath , 10);
+            WaitUtils.WaitToBeClickable(driver, "XPath", e_SaveXPath, 10);
             Save.Click();
         }
 

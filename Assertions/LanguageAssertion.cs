@@ -1,6 +1,4 @@
-﻿using AdvancedTaskPart1.Pages;
-using AdvancedTaskPart1.Pages.ProfileComponents;
-using AdvancedTaskPart1.TestModel;
+﻿using AdvancedTaskPart1.TestModel;
 using AdvancedTaskPart1.Utils;
 using AventStack.ExtentReports;
 using Microsoft.CodeAnalysis;
@@ -14,24 +12,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdvancedTaskPart1.Steps;
+using AdvancedTaskPart1.Pages.Components.ProfilePage;
 
 namespace AdvancedTaskPart1.Assertions
 {
     public class LanguageAssertion : CommonDriver
     {
-        
-        Language languageObj;
-     
+
+        ProfileTabLanguage profileTabLanguageObj;
+
         public LanguageAssertion()
         {
-            languageObj = new Language();
-            
+            profileTabLanguageObj = new ProfileTabLanguage();
+
         }
         public void addLanguageAssertion(string language)
         {
 
             // Retrieve the added language
-            string addedLanguage = languageObj.GetLanguage();
+            string addedLanguage = profileTabLanguageObj.GetLanguage();
 
             // Log the expected and actual language values
             Console.WriteLine($"Expected Language: {language}");
@@ -47,13 +46,13 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "Test passed successfully");
 
             // Add the language to the list for cleanup
-            CommonDriver.LanguageToDelete.Add(language);
+            LanguageToDelete.Add(language);
 
         }
 
         public void addLanguagewithemptyAssertion()
         {
-            string message = languageObj.GetErrorMessage();
+            string message = profileTabLanguageObj.GetErrorMessage();
             string expectedMessage = "Please enter language and level";
             Assert.That(message, Is.EqualTo(expectedMessage), "The expected error message did not appear.");
             test.Log(Status.Pass, "Test passed successfully");
@@ -62,7 +61,7 @@ namespace AdvancedTaskPart1.Assertions
         {
 
             // Retrieve the actual error message
-            string actualErrorMessage = languageObj.GetErrorMessage();
+            string actualErrorMessage = profileTabLanguageObj.GetErrorMessage();
 
             // Assert that the actual error message matches the expected message
             Assert.That(actualErrorMessage, Is.EqualTo("This language is already exist in your language list."), "The expected error message did not appear.");
@@ -74,7 +73,7 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "Test passed successfully");
 
             // Add the language to the list for cleanup
-            CommonDriver.LanguageToDelete.Add(language);
+            LanguageToDelete.Add(language);
 
         }
         public void createMultipleDataAssertion()
@@ -107,7 +106,7 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "All languages were successfully created and verified.");
 
             // Add the languages to the delete list
-            expectedLanguages.ForEach(language => CommonDriver.LanguageToDelete.Add(language));
+            expectedLanguages.ForEach(language => LanguageToDelete.Add(language));
         }
 
         public void addLanguagewithInvalidAssertion(List<string> invalidLanguages)
@@ -136,7 +135,7 @@ namespace AdvancedTaskPart1.Assertions
                 try
                 {
                     wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath("//div[@class='ns-box ns-growl ns-effect-jelly ns-type-error ns-show']")));
-                    actualErrorMessage = languageObj.GetErrorMessage();
+                    actualErrorMessage = profileTabLanguageObj.GetErrorMessage();
                 }
                 catch (WebDriverTimeoutException)
                 {
@@ -162,7 +161,7 @@ namespace AdvancedTaskPart1.Assertions
                 {
                     try
                     {
-                        CommonDriver.LanguageToDelete.Add(language);
+                        LanguageToDelete.Add(language);
                     }
                     catch (Exception ex)
                     {
@@ -214,7 +213,7 @@ namespace AdvancedTaskPart1.Assertions
                 {
                     try
                     {
-                        CommonDriver.LanguageToDelete.Add(language);
+                        LanguageToDelete.Add(language);
                     }
                     catch (Exception ex)
                     {
@@ -227,7 +226,7 @@ namespace AdvancedTaskPart1.Assertions
         public void editLanguageAssertion(string language)
         {
             // Retrieve the updated language
-            string updatedlanguage = languageObj.GetLanguage();
+            string updatedlanguage = profileTabLanguageObj.GetLanguage();
 
             // Log the expected and actual language values
             Console.WriteLine($"Expected Language: {language}");
@@ -241,26 +240,26 @@ namespace AdvancedTaskPart1.Assertions
             test.Log(Status.Pass, "Test passed successfully");
 
             // Add the language to the list for cleanup
-            CommonDriver.LanguageToDelete.Add(language);
+            LanguageToDelete.Add(language);
 
 
         }
         public void editLanguagewithemptyAssertion()
         {
-            string message = languageObj.GetErrorMessage();
+            string message = profileTabLanguageObj.GetErrorMessage();
             string expectedMessage = "Please enter language and level";
             Assert.That(message, Is.EqualTo(expectedMessage), "The expected error message did not appear.");
             test.Log(Status.Pass, "Test passed successfully");
-        } 
+        }
 
 
         public void editLanguagewithduplicateAssertion(string language)
         {
-            string message = languageObj.GetErrorMessage();
+            string message = profileTabLanguageObj.GetErrorMessage();
             string expectedMessage = "This language is already added to your language list.";
             Assert.That(message, Is.EqualTo(expectedMessage), "The expected error message did not appear.");
             test.Log(Status.Pass, "Test passed successfully");
-            CommonDriver.LanguageToDelete.Add(language);
+            LanguageToDelete.Add(language);
         }
 
         public void deleteLanguageWhichisinListAssertion(string language)
@@ -269,8 +268,8 @@ namespace AdvancedTaskPart1.Assertions
             {
 
                 // Verify that the degree is no longer present
-                var languageAfterDeletion = languageObj.GetLanguage();
-                foreach (var languages in CommonDriver.LanguageToDelete)
+                var languageAfterDeletion = profileTabLanguageObj.GetLanguage();
+                foreach (var languages in LanguageToDelete)
                 {
                     if (languageAfterDeletion.Contains(language))
                     {
@@ -290,7 +289,7 @@ namespace AdvancedTaskPart1.Assertions
             }
             finally
             {
-                if (CommonDriver.LanguageToDelete == null || !CommonDriver.LanguageToDelete.Any())
+                if (LanguageToDelete == null || !LanguageToDelete.Any())
                 {
                     test.Log(Status.Info, "No data to clean up.");
                 }
@@ -298,7 +297,7 @@ namespace AdvancedTaskPart1.Assertions
                 {
                     try
                     {
-                        foreach (var languages in CommonDriver.LanguageToDelete)
+                        foreach (var languages in LanguageToDelete)
                         {
                             test.Log(Status.Info, $"Attempting to delete language: {language}");
                         }
@@ -317,13 +316,13 @@ namespace AdvancedTaskPart1.Assertions
             {
                 language = LanguageToDelete.First();
 
-                var languageBeforeDeletionAttempt = languageObj.GetLanguage(); 
+                var languageBeforeDeletionAttempt = profileTabLanguageObj.GetLanguage();
 
-                var languageAfterDeletionAttempt = languageObj.GetLanguage();
+                var languageAfterDeletionAttempt = profileTabLanguageObj.GetLanguage();
 
                 Assert.That(languageAfterDeletionAttempt, Is.EquivalentTo(languageAfterDeletionAttempt), "The list of degrees should remain unchanged when attempting to delete non-existent data.");
-                languageObj.DeleteLanguage(language);
-                           
+                profileTabLanguageObj.DeleteLanguage(language);
+
             }
             catch (Exception ex)
             {
